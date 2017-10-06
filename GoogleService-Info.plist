@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>917200092729-gpf2gfh4819j465gt2t60pag1sf7bnj9.apps.googleusercontent.com</string>
+	<string>1098676901947-uu53qtl3e3i88jt406c9vuiibgiuqek3.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.917200092729-gpf2gfh4819j465gt2t60pag1sf7bnj9</string>
+	<string>com.googleusercontent.apps.1098676901947-uu53qtl3e3i88jt406c9vuiibgiuqek3</string>
 	<key>API_KEY</key>
-	<string>AIzaSyD-Wv834bMjNA_0dFahe38y8d66e9inv-4</string>
+	<string>AIzaSyA3KDP2nFIuvrLVB1Sr7F3qsxfK9NlglgE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>917200092729</string>
+	<string>1098676901947</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.lc.pokefinder</string>
+	<string>LC.social</string>
 	<key>PROJECT_ID</key>
-	<string>pokefinder-43adf</string>
+	<string>social-9fd48</string>
 	<key>STORAGE_BUCKET</key>
-	<string>pokefinder-43adf.appspot.com</string>
+	<string>social-9fd48.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:917200092729:ios:9210b66d9de9cd3e</string>
+	<string>1:1098676901947:ios:90733e7dc222916d</string>
 	<key>DATABASE_URL</key>
-	<string>https://pokefinder-43adf.firebaseio.com</string>
+	<string>https://social-9fd48.firebaseio.com</string>
 </dict>
 </plist>
