@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C0FFD091F8CF86200CA648A /* FancyCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0FFD081F8CF86200CA648A /* FancyCircleView.swift */; };
+		4C0FFD0B1F8D1A1D00CA648A /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0FFD0A1F8D1A1D00CA648A /* PostCell.swift */; };
 		4C182E701F8BCAA30062A71A /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C182E6F1F8BCAA30062A71A /* FeedVC.swift */; };
 		4C2943091F868CAA00D12C3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2943081F868CAA00D12C3D /* AppDelegate.swift */; };
 		4C29430B1F868CAA00D12C3D /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C29430A1F868CAA00D12C3D /* SignInVC.swift */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		12386EF3ED374B754E800855 /* Pods-social.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-social.release.xcconfig"; path = "Pods/Target Support Files/Pods-social/Pods-social.release.xcconfig"; sourceTree = "<group>"; };
 		4C0FFD081F8CF86200CA648A /* FancyCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyCircleView.swift; sourceTree = "<group>"; };
+		4C0FFD0A1F8D1A1D00CA648A /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		4C182E6F1F8BCAA30062A71A /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		4C2943051F868CAA00D12C3D /* social.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = social.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C2943081F868CAA00D12C3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				4CD3D8631F87D07E00A758EB /* FancyField.swift */,
 				4CD3D8651F87D56000A758EB /* FancyButton.swift */,
 				4C0FFD081F8CF86200CA648A /* FancyCircleView.swift */,
+				4C0FFD0A1F8D1A1D00CA648A /* PostCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				4C2943091F868CAA00D12C3D /* AppDelegate.swift in Sources */,
 				4CD3D85D1F87AF0900A758EB /* FancyView.swift in Sources */,
 				4CD3D8601F87B41C00A758EB /* Constants.swift in Sources */,
+				4C0FFD0B1F8D1A1D00CA648A /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
