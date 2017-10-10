@@ -11,3 +11,5 @@ import UIKit
 //Sets a grey colour variable so it can be use in the FancyView file for the colour
 //Capitals are used for constants
 let SHADOW_GREY: CGFloat = 120.0 / 255.0
+//This is a constant key
+let KEY_UID = "uid"

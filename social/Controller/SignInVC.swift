@@ -10,6 +10,7 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
+import SwiftKeychainWrapper
 
 class SignInVC: UIViewController {
     
@@ -18,13 +19,16 @@ class SignInVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    }
+    //auto sign in
+    override func viewDidAppear(_ animated: Bool) {
+        //id present check
+        if let _ = KeychainWrapper.standard.string(forKey: KEY_UID) {
+            //if there
+            performSegue(withIdentifier: "goToFeed", sender: nil)
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 //when tapped it logins in the user through their facebook account
     @IBAction func facebookBtnTapped(_ sender: Any) {
         //checking that everything is okay with facebook
@@ -55,6 +59,10 @@ class SignInVC: UIViewController {
                 print("Lauren: Unable to authenticate with Firebase - \(error!)")
             } else {
                 print("Lauren: Successfully authenticated with Firebase")
+                //uses complete sign in function to generate key (user = user stops the ? from appearing, this mean it is unwrapped)
+                if let user = user {
+                    self.completeSignIn(id: user.uid)
+                }
             }
         })
     }
@@ -67,6 +75,10 @@ class SignInVC: UIViewController {
                 //user exists and the detais are correct
                 if error == nil {
                     print("Lauren: Email user authenticated with Firebase")
+                    //calls function for auto sign in
+                    if let user = user {
+                        self.completeSignIn(id: user.uid)
+                    }
                     //user doesn't exist, creates account
                 } else {
                     Auth.auth().createUser(withEmail: email, password: pwd, completion: {(user, error) in
@@ -76,11 +88,22 @@ class SignInVC: UIViewController {
                         } else {
                             //user can be created
                             print("Lauren: Successfully authenticated with Firebase using email \(error)")
+                            //calls function to make auto sign in
+                            if let user = user {
+                                self.completeSignIn(id: user.uid)
+                            }
                         }
                     })
                 }
             })
         }
+    }
+    //auto sign-in
+    func completeSignIn(id: String) {
+        //creates a key
+        let keychainResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
+        print("Lauren: Data saved to keychain \(keychainResult)")
+        performSegue(withIdentifier: "goToFeed", sender: nil)
     }
 }
 
