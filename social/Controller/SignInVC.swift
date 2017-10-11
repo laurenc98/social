@@ -61,7 +61,9 @@ class SignInVC: UIViewController {
                 print("Lauren: Successfully authenticated with Firebase")
                 //uses complete sign in function to generate key (user = user stops the ? from appearing, this mean it is unwrapped)
                 if let user = user {
-                    self.completeSignIn(id: user.uid)
+                    //passes data to the function for the database
+                    let userData = ["provider": credential.provider]
+                    self.completeSignIn(id: user.uid, userData: userData)
                 }
             }
         })
@@ -77,7 +79,8 @@ class SignInVC: UIViewController {
                     print("Lauren: Email user authenticated with Firebase")
                     //calls function for auto sign in
                     if let user = user {
-                        self.completeSignIn(id: user.uid)
+                        let userData = ["provider": user.providerID]
+                        self.completeSignIn(id: user.uid, userData: userData)
                     }
                     //user doesn't exist, creates account
                 } else {
@@ -90,7 +93,8 @@ class SignInVC: UIViewController {
                             print("Lauren: Successfully authenticated with Firebase using email \(error)")
                             //calls function to make auto sign in
                             if let user = user {
-                                self.completeSignIn(id: user.uid)
+                                let userData = ["provider": user.providerID]
+                                self.completeSignIn(id: user.uid, userData: userData)
                             }
                         }
                     })
@@ -99,7 +103,9 @@ class SignInVC: UIViewController {
         }
     }
     //auto sign-in
-    func completeSignIn(id: String) {
+    func completeSignIn(id: String, userData: Dictionary<String, String>) {
+        //passes in the class and database variables to give data to the clas
+        DataService.ds.createFirebaseDBUser(uid: id, userData: userData)
         //creates a key
         let keychainResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
         print("Lauren: Data saved to keychain \(keychainResult)")
