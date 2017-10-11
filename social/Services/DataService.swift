@@ -47,5 +47,5 @@ class DataService {
         //It updates the values of likes and posts
         REF_USERS.child(uid).updateChildValues(userData)
     }
-    
+    //get data from firebase
 }
