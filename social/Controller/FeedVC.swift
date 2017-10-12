@@ -14,6 +14,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
+    var posts = [Post]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,7 +24,28 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         //initialise the listening for data
         //listens for changes to the posts object
         DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
-            print(snapshot.value)
+            //prevents duplicates
+            self.posts = []
+            //broken down into individual objects
+            //children is each post
+            //all objects means likes, caption, image url
+            if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
+                //take each individual snap (children)
+                for snap in snapshot {
+                    print("SNAP: \(snap)")
+                    //now have objects eg. 3
+                    //value is things inside the object such as imageUrl and caption and likes
+                    if let postDict = snap.value as? Dictionary<String, AnyObject> {
+                        let key = snap.key
+                        //passing data
+                        let post = Post(postKey: key, postData: postDict)
+                        //takes the array of posts and appends it
+                        self.posts.append(post)
+                    }
+                }
+            }
+            //shows the data in the background but does not display yet
+            self.tableView.reloadData()
         })
     }
 
@@ -31,10 +54,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let post = posts[indexPath.row]
+        print("Lauren: \(post.caption)")
+        
         return tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
     }
     
