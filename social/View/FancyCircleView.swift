@@ -14,6 +14,7 @@ class FancyCircleView: UIImageView {
     override func layoutSubviews() {
         //The function helps include the frame size which can be used in the calculation
         layer.cornerRadius = self.frame.width / 2
+        clipsToBounds = true
     }
     
 }

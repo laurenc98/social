@@ -9,18 +9,25 @@
 import UIKit
 import SwiftKeychainWrapper
 import Firebase
-
-class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+//image picker controller delegate and navigation controller delegate needed to get image to display
+class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addImage: FancyCircleView!
     
     var posts = [Post]()
+    var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
         tableView.dataSource = self
+        //initialises image picker
+        imagePicker = UIImagePickerController()
+        //allows editing e.g. crop
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
         //initialise the listening for data
         //listens for changes to the posts object
         DataService.ds.REF_POSTS.observe(.value, with: { (snapshot) in
@@ -67,6 +74,19 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             return PostCell()
         }
     }
+    //needed function
+    //sends an array
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        //one of the items in the array is image picker controller edited image
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            //when thatis selected it sets it to the ui image
+            addImage.image = image
+        } else {
+            print("Lauren: Invalid image, wasn't selected")
+        }
+        //gets rid of image picker when image selected
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
     
     //sign out button
     @IBAction func signOutTapped(_ sender: Any) {
@@ -78,6 +98,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         //back to sign in view
         performSegue(withIdentifier: "goToSignIn", sender: nil)
     }
+    @IBAction func addImageTapped(_ sender: Any) {
+        //displays image picker
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
     
     /*
     // MARK: - Navigation
