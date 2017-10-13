@@ -100,6 +100,22 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         //gets rid of image picker when image selected
         imagePicker.dismiss(animated: true, completion: nil)
     }
+    //post
+    func postToFirebase(imgUrl: String) {
+        //content
+        let post: Dictionary<String, AnyObject> = [
+            "caption": captionField.text! as AnyObject,
+            "imageUrl": imgUrl as AnyObject,
+            "likes": 0 as AnyObject
+        ]
+        //where the post content goes
+        let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
+        firebasePost.setValue(post)
+        //clears previous post
+        captionField.text = ""
+        imageSelected = false
+        addImage.image = UIImage(named: "add-image")
+    }
     
     //sign out button
     @IBAction func signOutTapped(_ sender: Any) {
@@ -147,6 +163,10 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                     print("Lauren: Successfully uploaded image to Firebase Storage")
                     //metadata contain url for downloading
                     let downloadUrl = metaData?.downloadURL()?.absoluteString
+                    //unwrap
+                    if let url = downloadUrl {
+                        self.postToFirebase(imgUrl: url)
+                    }
                 }
             }
         }
