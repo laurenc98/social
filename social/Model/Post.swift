@@ -12,7 +12,7 @@ class Post {
     //private variables usually begin with _ so when they are made global they can be removed in the getters
     //store data
     private var _caption: String!
-    private var _imageUrl: String!
+    private var _imageUrl: NSString!
     private var _likes: Int!
     private var _postKey: String!
     //get setters to make them global
@@ -20,7 +20,7 @@ class Post {
         return _caption
     }
     
-    var imageUrl: String {
+    var imageUrl: NSString {
         return _imageUrl
     }
     
@@ -32,7 +32,7 @@ class Post {
         return _postKey
     }
     //initialises the variables
-    init(caption: String, imageUrl: String, likes: Int) {
+    init(caption: String, imageUrl: NSString, likes: Int) {
         self._caption = caption
         self._imageUrl = imageUrl
         self._likes = likes
@@ -47,7 +47,7 @@ class Post {
             self._caption = caption
         }
         
-        if let imageUrl = postData["imageUrl"] as? String {
+        if let imageUrl = postData["imageUrl"] as? NSString {
             self._imageUrl = imageUrl
         }
         

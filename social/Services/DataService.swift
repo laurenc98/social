@@ -11,12 +11,15 @@ import Firebase
 //this is global (all global variables should be in capitals
 //it contains the url of the route of the database
 let DB_BASE = Database.database().reference()
+//it contains the url of the route of the storage
+let STORAGE_BASE = Storage.storage().reference()
 
 class DataService {
     //make a single instance of a class
     //this makes the class easy to reference and code with
     //static makes it global
     static let ds = DataService()
+    //database references
     private var _REF_BASE = DB_BASE
     //creating common end points
     //creates post reference
@@ -25,8 +28,13 @@ class DataService {
     private var _REF_POSTS = DB_BASE.child("posts")
     //referenece to users
     private var _REF_USERS = DB_BASE.child("users")
+    
+    //storage references
+    private var _REF_POST_IMAGES = STORAGE_BASE.child("post-pics")
+    //same process ^ for profile images
     //makes the references global
     //this is done as security so no one else can reference these variables
+    //datatbase references get set
     var REF_BASE: DatabaseReference {
         return _REF_BASE
     }
@@ -37,6 +45,10 @@ class DataService {
     
     var REF_USERS: DatabaseReference {
         return _REF_USERS
+    }
+    //storage references get set
+    var REF_POST_IMAGES: StorageReference {
+        return _REF_POST_IMAGES
     }
     //use references to post data to the database to create users
     //uid = user id number
