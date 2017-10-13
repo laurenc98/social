@@ -14,11 +14,14 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addImage: FancyCircleView!
+    @IBOutlet weak var captionField: FancyField!
     
     var posts = [Post]()
     var imagePicker: UIImagePickerController!
     //image cache
     static var IMAGE_CACHE: NSCache<NSString, UIImage> = NSCache()
+    //to prevent button image
+    var imageSelected = false
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -89,6 +92,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             //when thatis selected it sets it to the ui image
             addImage.image = image
+            //prevents default button image
+            imageSelected = true
         } else {
             print("Lauren: Invalid image, wasn't selected")
         }
@@ -109,6 +114,42 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     @IBAction func addImageTapped(_ sender: Any) {
         //displays image picker
         present(imagePicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func postBtnTapped(_ sender: Any) {
+        //can't post unless image is selected and caption wrote
+        //guard statement
+        //guard checks it exists and if it does is it not blank
+        guard let caption = captionField.text, caption != "" else {
+            //error will occur
+            print("Lauren: caption must be entered")
+            //return needed for guard statements
+            return
+        }
+        //goes to next guard statement if caption passed
+        //checks image is selected and its not the default
+        guard let img = addImage.image, imageSelected == true else {
+            print("Lauren: Image must be selected")
+            return
+        }
+        //uploading image
+        //compress the image data
+        if let imgData = UIImageJPEGRepresentation(img, 0.2) {
+            let imgUid = NSUUID().uuidString
+            //jpeg being passed
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpeg"
+            //use references
+            DataService.ds.REF_POST_IMAGES.child(imgUid).putData(imgData, metadata: metaData) { (metaData, error) in
+                if error != nil {
+                    print("Lauren: Unable to upload image to Firebase Storage")
+                } else {
+                    print("Lauren: Successfully uploaded image to Firebase Storage")
+                    //metadata contain url for downloading
+                    let downloadUrl = metaData?.downloadURL()?.absoluteString
+                }
+            }
+        }
     }
     
     
