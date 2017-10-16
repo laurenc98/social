@@ -7,6 +7,7 @@
 //
 //post object data model
 import Foundation
+import Firebase
 
 class Post {
     //private variables usually begin with _ so when they are made global they can be removed in the getters
@@ -15,6 +16,7 @@ class Post {
     private var _imageUrl: NSString!
     private var _likes: Int!
     private var _postKey: String!
+    private var _postRef: DatabaseReference!
     //get setters to make them global
     var caption: String {
         return _caption
@@ -54,5 +56,18 @@ class Post {
         if let likes = postData["likes"] as? Int {
             self._likes = likes
         }
+        
+        _postRef = DataService.ds.REF_POSTS.child(_postKey)
+    }
+    //adjust likes
+    func adjustLikes(addLike: Bool) {
+        if addLike {
+            //adds a like
+            _likes = _likes + 1
+        } else {
+            //removes a like
+            _likes = _likes - 1
+        }
+        _postRef.child("likes").setValue(_likes)
     }
 }

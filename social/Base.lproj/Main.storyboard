@@ -323,6 +323,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="caption" destination="Mle-aM-wJu" id="5pK-az-rg8"/>
+                                            <outlet property="likeImg" destination="uVy-3u-xyO" id="MYM-MV-N2v"/>
                                             <outlet property="numberOfLikesLbl" destination="a0f-xe-xA2" id="myL-NX-6Hq"/>
                                             <outlet property="postImg" destination="FZX-hg-eTC" id="vjF-qC-PCt"/>
                                             <outlet property="profileImg" destination="xpT-2L-XUh" id="FTu-WZ-Jt7"/>

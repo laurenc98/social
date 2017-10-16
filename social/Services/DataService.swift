@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import SwiftKeychainWrapper
 //this is global (all global variables should be in capitals
 //it contains the url of the route of the database
 let DB_BASE = Database.database().reference()
@@ -45,6 +46,13 @@ class DataService {
     
     var REF_USERS: DatabaseReference {
         return _REF_USERS
+    }
+    //reference to the current user
+    var REF_USER_CURRENT: DatabaseReference {
+        //grabs the user id to identify them
+        let uid = KeychainWrapper.standard.string(forKey: KEY_UID)
+        let user = REF_USERS.child(uid!)
+        return user
     }
     //storage references get set
     var REF_POST_IMAGES: StorageReference {
